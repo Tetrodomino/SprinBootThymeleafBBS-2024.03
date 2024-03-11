@@ -12,6 +12,7 @@ import com.example.abbs.entity.Board;
 @Mapper
 public interface BoardDao {
 
+
 	@Select("select b.*, u.uname from board b"
 			+ " join users u on b.uid=u.uid"
 			+ " where b.bid=#{bid}")
@@ -25,15 +26,15 @@ public interface BoardDao {
 	@Select("select b.*, u.uname from board b"
 			+ " join users u on b.uid=u.uid"
 			+ " where b.isDeleted=0 and ${field} like #{query}"
-			+ " order by b.modTime desc"
+			+ " order by b.writeTime desc"
 			+ " limit #{count} offset #{offset}")
 	List<Board> getBoardList(String field, String query, int count, int offset);
 	
-	@Insert("insert into board values(default, #{title}, #{content}, #{uid}"
-			+ ", default, default, default, default, default, #{files}")
+	@Insert("insert into board values(default, #{uid}, #{title}, #{content}"
+			+ ", default, default, default, default, default, #{files})")
 	void insertBoard(Board board);
 	
-	@Update("update board set title=#{title}, content=#{content}, modTime=now(), "
+	@Update("update board set title=#{title}, content=#{content}, writeTime=now(), "
 			+ "files=#{files} where bid=#{bid}")
 	void updateBoard(Board board);
 	

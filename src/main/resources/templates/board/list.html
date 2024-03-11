@@ -9,7 +9,7 @@
 		function search() {
 			const field = $('#field').val();
 			const query = $('#query').val();
-			const uri = '/abbs/board/list?p=' + [[${session.currentBoardPage}]] + '&f=' + field + '&q=' + query
+			const uri = '/abbs/board/list?p=' + [[${session.currentBoardPage}]] + '&f=' + field + '&q=' + query;
 			location.href = encodeURI(uri);
 		}
 	</script>
@@ -31,7 +31,7 @@
 						<tr>
 							<td style="width: 52%; text-align: left">
 								<h3><strong class="me-5">게시글 목록</strong>
-									<span style="font-size:16px"><a href="/jw/bbs/board/insert"><i class="fa-solid fa-pen-to-square"></i> 글 쓰기</a></span>
+									<span style="font-size:16px"><a href="/abbs/board/insert"><i class="fa-solid fa-pen-to-square"></i> 글 쓰기</a></span>
 								</h3>
 							</td>
 							<td style="width: 16%">
@@ -44,10 +44,10 @@
 							<td style="width: 24%">
 								<span th:unless="${query}">
 									<input class="form-control" type="text" id="query" placeholder="검색할 내용">
-								</span th:unless>
+								</span>
 								<span th:if="${query}">
-									<input class="form-control" type="text" id="query" value="${query}">
-								</span th:if>
+									<input class="form-control" type="text" id="query" th:value="${query}">
+								</span>
 							</td>
 							<td style="width: 8%">
 								<button class="btn btn-outline-primary" onclick="search()">검색</button>
@@ -58,36 +58,36 @@
 					<table class="table">
 						<tr>
 							<th style="width: 8%">ID</th>
-							<th style="width: 52%">제목</th>
+							<th style="width: 42%">제목</th>
 							<th style="width: 14%">글쓴이</th>
 							<th style="width: 16%">수정시간</th>
 							<th style="width: 10%">조회수</th>
+							<th style="width: 10%">좋아요</th>
 						</tr>
-						<c:forEach var="board" items="${boardList}">
-						<tr th:each="${board}">
+						<tr th:each="board: ${boardList}">
 							<td>[[${board.bid}]]</td>
 							<td>
-								<a th:href="@{/board/detail/{x}/{y}(x=${board.bid},y=${board.bid})}">[[${board.title}]]</a>
-								<span th:if test="${board.replyCount ge 1}">
+								<a th:href="@{/board/detail/{x}(x=${board.bid})}">[[${board.title}]]</a>
+								<span th:if="${board.replyCount ge 1}">
 									<span class="text-danger">[[${board.replyCount}]]</span>
-								</span th:if>
+								</span>
 							</td>
 							<td>[[${board.uname}]]</td>
-							<td>[[${#temporals.format(board.modTime, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+							<td>[[${#temporals.format(board.writeTime, 'yyyy-MM-dd HH:mm:ss')}]]</td>
 							<td>[[${board.viewCount}]]</td>
+							<td>[[${board.likeCount}]]</td>
 						</tr>
-						</c:forEach>
-					</table>
+					</table>-
 					<!-- pagination -->
-					<ul class="pagination justify-content-center mt-4">
+					<!--<ul class="pagination justify-content-center mt-4">
 						<li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-less-than"></i></a></li>
 						<div th:each="page: ${pageList}">
 							<li class="page-item ${currentBoardPage eq page ? 'active' : ''}">
-								<a class="page-link" th:href="@{/board/list}?(p=${page}&f=${field}&q=${query})">[[${page}]]</a>
+								<a class="page-link" th:href="@{/board/list(p=${page}&f=${field}&q=${query})}">[[${page}]]</a>
 							</li>
 						</div>
 						<li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-greater-than"></i></a></li>
-					</ul>
+					</ul>-->
 				</main>
 			</div>
 		</div>
