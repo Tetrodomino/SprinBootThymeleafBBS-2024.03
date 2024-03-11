@@ -14,6 +14,7 @@ public class Board {
 	private int replyCount;
 	private int likeCount;
 	private String files;
+	private String uname;
 	
 	public Board(String title, String content, String uid) {
 		this.title = title;
@@ -43,6 +44,21 @@ public class Board {
 		this.replyCount = replyCount;
 		this.likeCount = likeCount;
 		this.files = files;
+	}
+
+	public Board(int bid, String title, String content, String uid, LocalDateTime writeTime, int isDeleted,
+			int viewCount, int replyCount, int likeCount, String files, String uname) {
+		this.bid = bid;
+		this.title = title;
+		this.content = content;
+		this.uid = uid;
+		this.writeTime = writeTime;
+		this.isDeleted = isDeleted;
+		this.viewCount = viewCount;
+		this.replyCount = replyCount;
+		this.likeCount = likeCount;
+		this.files = files;
+		this.uname = uname;
 	}
 
 	@Override
@@ -130,6 +146,14 @@ public class Board {
 
 	public void setFiles(String files) {
 		this.files = files;
+	}
+
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
 	}
 	
 }

@@ -8,6 +8,7 @@ $(document).ready(function() {
         $('#stateInput').val($('#stateMsg').text()); // 입력창에 id값이 stateMsg인 태그의 글을 넣음
     });
     $('#stateMsgSubmit').click(changeStateMsg); // 이벤트 등록
+    $('#getWeatherButton').click(getWeather);
 });
 
 function changeStateMsg() {
@@ -23,6 +24,16 @@ function changeStateMsg() {
         success: function(e) {
             console.log('state message:', stateInputVal, e);
             $('#stateMsg').html(stateInputVal);
+        }
+    });
+}
+
+function getWeather() {
+    $.ajax({
+        type: 'GET',
+        url: '/abbs/aside/weather',
+        success: function(result) {
+            $('#weather').html(result);
         }
     });
 }
