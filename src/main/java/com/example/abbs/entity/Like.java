@@ -17,6 +17,12 @@ public class Like {
 		this.uid = uid;
 		this.bid = bid;
 	}
+	
+	public Like(String uid, int bid, int value) {
+		this.uid = uid;
+		this.bid = bid;
+		this.value = value;
+	}
 
 	public Like(int lid, String uid, int bid, int value) {
 		this.lid = lid;

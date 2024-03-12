@@ -20,7 +20,9 @@ public interface BoardDao {
 
 	// ${} = 항목명(bid, content 등)이 들어감 - 문구 그대로 들어감
 	// #{} = 내용이 들어감 (content 안의 내용 등) - String이면 ''을 붙여서, int면 그대로
-	@Select("select count(bid) from board where isDeleted=0 and ${field} like #{query}")
+	@Select("select count(b.bid) from board b"
+	         + " JOIN users u ON b.uid=u.uid"
+	         + " where b.isDeleted=0 and ${field} like #{query}")
 	int getBoardCount(String field, String query);
 	
 	@Select("select b.*, u.uname from board b"

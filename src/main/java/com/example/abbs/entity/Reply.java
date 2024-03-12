@@ -5,33 +5,51 @@ import java.time.LocalDateTime;
 public class Reply {
 
 	private int rid;
-	private String comment;
-	private LocalDateTime regTime;
-	private String uid;
 	private int bid;
+	private String uid;
+	private String content;
+	private LocalDateTime replyTime;
 	private int isMine;
+	private String uname;
 	
 	public Reply() {
 	}
 
-	public Reply(String comment, String uid, int bid) {
-		this.comment = comment;
+	public Reply(String content, String uid, int bid) {
+		this.content = content;
 		this.uid = uid;
 		this.bid = bid;
 	}
 
-	public Reply(int rid, String comment, LocalDateTime regTime, String uid, int bid, int isMine) {
-		this.rid = rid;
-		this.comment = comment;
-		this.regTime = regTime;
+	public Reply(String content, String uid, int bid, int isMine) {
+		this.content = content;
 		this.uid = uid;
 		this.bid = bid;
 		this.isMine = isMine;
 	}
 
+	public Reply(int rid, String content, LocalDateTime replyTime, String uid, int bid, int isMine) {
+		this.rid = rid;
+		this.content = content;
+		this.replyTime = replyTime;
+		this.uid = uid;
+		this.bid = bid;
+		this.isMine = isMine;
+	}
+
+	public Reply(int rid, String content, LocalDateTime replyTime, String uid, int bid, int isMine, String uname) {
+		this.rid = rid;
+		this.content = content;
+		this.replyTime = replyTime;
+		this.uid = uid;
+		this.bid = bid;
+		this.isMine = isMine;
+		this.uname = uname;
+	}
+
 	@Override
 	public String toString() {
-		return "Reply [rid=" + rid + ", comment=" + comment + ", regTime=" + regTime + ", uid=" + uid + ", bid=" + bid
+		return "Reply [rid=" + rid + ", content=" + content + ", replyTime=" + replyTime + ", uid=" + uid + ", bid=" + bid
 				+ ", isMine=" + isMine + "]";
 	}
 
@@ -43,20 +61,20 @@ public class Reply {
 		this.rid = rid;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getContent() {
+		return content;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public LocalDateTime getRegTime() {
-		return regTime;
+	public LocalDateTime getReplyTime() {
+		return replyTime;
 	}
 
-	public void setRegTime(LocalDateTime regTime) {
-		this.regTime = regTime;
+	public void setReplyTime(LocalDateTime replyTime) {
+		this.replyTime = replyTime;
 	}
 
 	public String getUid() {
@@ -81,6 +99,14 @@ public class Reply {
 
 	public void setIsMine(int isMine) {
 		this.isMine = isMine;
+	}
+
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
 	}
 	
 	
