@@ -7,14 +7,15 @@ import com.example.abbs.entity.Like;
 public interface LikeService {
 
 	Like getLike(int bid, String uid);
+
+	Like getLikeByLid(int lid);
 	
 	List<Like> getLikeList(int bid);
 	
 	void insertLike(Like like);
 	
-	void toggleLike(Like like);
+	int toggleLike(Like like);
 	
 	int getLikeCount(int bid);
 	
-	Like getLikeByLid(int lid);
 }
