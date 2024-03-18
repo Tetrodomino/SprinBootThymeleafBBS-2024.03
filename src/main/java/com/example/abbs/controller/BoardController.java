@@ -34,6 +34,7 @@ public class BoardController {
 	@Autowired private LikeService likeService;
 	@Autowired private JsonUtil jsonUtil;
 	@Value("${spring.servlet.multipart.location}") private String uploadDir;
+	private String menu = "board";
 	
 	// page 값을 주소 파라메터로는 p로 하고, 입력하지 않을 때의 디폴트는 1로 설정
 	// field나 query의 경우도 이하 동일한 방식으로 작동
@@ -68,13 +69,14 @@ public class BoardController {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("pageList", pageList);
+		model.addAttribute("menu", menu);
 		
 		return "board/list";
 	}
 	
 	@GetMapping("/insert")
-	public String insert() {
-		
+	public String insert(Model model) {
+		model.addAttribute("menu", menu);
 		return "board/insert";
 	}
 	
@@ -138,6 +140,7 @@ public class BoardController {
 		List<Reply> replyList = replyService.getReplyList(bid);
 		model.addAttribute("replyList", replyList);
 		
+		model.addAttribute("menu", menu);
 		return "board/detail";
 	}
 	

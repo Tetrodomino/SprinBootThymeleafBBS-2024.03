@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.abbs.entity.SchDay;
+import com.example.abbs.service.ScheduleService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/schedule")
 public class ScheduleController {
+	@Autowired private ScheduleService scheSvc;
+	private String menu = "schedule";
 
 	@GetMapping({"/calendar/{arrow}", "/calendar"})
 	public String calendar(@PathVariable(required=false) String arrow, HttpSession session, Model model) {
@@ -86,8 +90,7 @@ public class ScheduleController {
 			int prevYear = prevSunDay.getYear();
 			for (int i = 0; i < startDate; i++) {
 				sdate = String.format("%d%02d%02d", prevYear, prevMonth, prevDay+i);
-				SchDay sd = new SchDay();
-				sd.setDay(prevDay+i); sd.setDate(i); sd.setSdate(sdate);
+				SchDay sd = scheSvc.generateSchDay(sessUid, prevDay+i, sdate, i, 1);
 				week.add(sd);
 			}
 		}
@@ -97,10 +100,7 @@ public class ScheduleController {
 		for (int i = startDate, k = 1; i < 7; i++, k++) // i랑 k를 동시에 for에 쓰는 법
 		{
 			sdate = String.format("%d%02d%02d", year, month, k);
-			SchDay sd = new SchDay();
-			sd.setDay(k);
-			sd.setDate(i);
-			sd.setSdate(sdate);
+			SchDay sd = scheSvc.generateSchDay(sessUid, k, sdate, i, 0);
 			week.add(sd);
 		}
 		calendar.add(week);
@@ -113,10 +113,7 @@ public class ScheduleController {
 				week = new ArrayList<>();
 			
 			sdate = String.format("%d%02d%02d", year, month, k);
-			SchDay sd = new SchDay();
-			sd.setDay(k);
-			sd.setDate(i % 7);
-			sd.setSdate(sdate);
+			SchDay sd = scheSvc.generateSchDay(sessUid, k, sdate, i % 7, 0);
 			week.add(sd);
 			
 			if (i % 7 == 6)
@@ -130,8 +127,7 @@ public class ScheduleController {
 			int nextYear = nextDay.getYear();
 			for (int i = lastDate + 1, k = 1; i < 7; i++, k++) {
 				sdate = String.format("%d%02d%02d", nextYear, nextMonth, k);
-				SchDay sd = new SchDay();
-				sd.setDay(k); sd.setDate(i); sd.setSdate(sdate);
+				SchDay sd = scheSvc.generateSchDay(sessUid, k, sdate, i, 1);
 				week.add(sd);
 			}
 			calendar.add(week);
@@ -142,12 +138,8 @@ public class ScheduleController {
 		model.addAttribute("year", year);
 		model.addAttribute("month", String.format("%02d", month));
 		model.addAttribute("height", 600 / calendar.size());
-//		model.addAttribute("calendar", calendar);
-//		model.addAttribute("calendar", calendar);
-//		model.addAttribute("calendar", calendar);
-//		model.addAttribute("calendar", calendar);
-//		model.addAttribute("calendar", calendar);
-//		model.addAttribute("calendar", calendar);
+		model.addAttribute("todaySdate", String.format("%d%02d%02d", today.getYear(), today.getMonthValue(), today.getDayOfMonth()));
+		model.addAttribute("menu", menu);
 		
 		return "schedule/calendar";
 	}

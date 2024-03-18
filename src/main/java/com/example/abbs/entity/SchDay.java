@@ -10,20 +10,20 @@ public class SchDay {
 	private int isOtherMonth;	// 다른 달의 표시 여부
 	private String sdate;	// String 형식으로 나타낸 년월일 ex: 20240313
 	private List<String> annivList; // 기념일 목록
-	private List<Schedule> schedulList; // 일정 목록
+	private List<Schedule> schedList; // 일정 목록
 	
 	public SchDay() {
 	}
 
 	public SchDay(int day, int date, int isHoliday, int isOtherMonth, String sdate, List<String> annivList,
-			List<Schedule> schedulList) {
+			List<Schedule> schedList) {
 		this.day = day;
 		this.date = date;
 		this.isHoliday = isHoliday;
 		this.isOtherMonth = isOtherMonth;
 		this.sdate = sdate;
 		this.annivList = annivList;
-		this.schedulList = schedulList;
+		this.schedList = schedList;
 	}
 
 	public int getDay() {
@@ -74,17 +74,17 @@ public class SchDay {
 		this.annivList = annivList;
 	}
 
-	public List<Schedule> getSchedulList() {
-		return schedulList;
+	public List<Schedule> getSchedList() {
+		return schedList;
 	}
 
-	public void setSchedulList(List<Schedule> schedulList) {
-		this.schedulList = schedulList;
+	public void setSchedList(List<Schedule> schedList) {
+		this.schedList = schedList;
 	}
 
 	@Override
 	public String toString() {
 		return "SchDay [day=" + day + ", date=" + date + ", isHoliday=" + isHoliday + ", isOtherMonth=" + isOtherMonth
-				+ ", sdate=" + sdate + ", annivList=" + annivList + ", schedulList=" + schedulList + "]";
+				+ ", sdate=" + sdate + ", annivList=" + annivList + ", schedList=" + schedList + "]";
 	}
 }
